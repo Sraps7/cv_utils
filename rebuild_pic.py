@@ -44,6 +44,17 @@ def cv_show(img, window="img", adjust=0, resize=False, width=800):
             break
     cv2.destroyWindow(window)
 
+    
+def cv2_draw_zh_cn(img, text, left, top, textColor=(0, 255, 0), fontFace="simsun.ttc", textSize=20, stroke_width=2):
+    # 判断是否为opencv图片类型
+    if (isinstance(img, np.ndarray)):
+        img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(img)
+    fontText = ImageFont.truetype(font_Face, textSize, encoding="utf-8")
+    draw.text((left, top), text, textColor, font=fontText, stroke_width=stroke_width)
+    return cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)
+  
+  
 def cut(img, cut_w, cut_h):
     h, w, c = img.shape
 
